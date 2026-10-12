@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#2f6fed"/>
+  <path d="M136 168c0-30.9 25.1-56 56-56h128c30.9 0 56 25.1 56 56v96c0 30.9-25.1 56-56 56h-72l-64 56v-56h-16c-17.7 0-32-14.3-32-32V168z" fill="#fff"/>
+  <text x="256" y="262" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="104" font-weight="700" text-anchor="middle" fill="#2f6fed">Hi!</text>
+</svg>

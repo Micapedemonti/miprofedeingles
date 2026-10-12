@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mi-profe-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: profe
+      POSTGRES_PASSWORD: profe_dev_password
+      POSTGRES_DB: mi_profe
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - mi_profe_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U profe -d mi_profe"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  mi_profe_pgdata:

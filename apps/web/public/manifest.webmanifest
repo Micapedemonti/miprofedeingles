@@ -1,0 +1,16 @@
+{
+  "name": "Mi profe de inglés",
+  "short_name": "Mi profe",
+  "description": "Practica inglés: escuchar, vocabulario y pronunciación.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f5f0",
+  "theme_color": "#2f6fed",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

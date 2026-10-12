@@ -1,0 +1,21 @@
+{
+  "name": "mi-profe-de-ingles",
+  "private": true,
+  "packageManager": "pnpm@9.15.5",
+  "scripts": {
+    "dev:api": "pnpm --filter @mi-profe/api start:dev",
+    "dev:web": "pnpm --filter @mi-profe/web dev",
+    "build:web": "pnpm --filter @mi-profe/web build",
+    "build:api": "pnpm --filter @mi-profe/api build",
+    "test:api": "pnpm --filter @mi-profe/api test",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:migrate": "pnpm --filter @mi-profe/api prisma:migrate",
+    "db:deploy": "pnpm --filter @mi-profe/api prisma:deploy",
+    "db:seed": "pnpm --filter @mi-profe/api prisma:seed",
+    "db:studio": "pnpm --filter @mi-profe/api prisma:studio"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.3"
+  }
+}
