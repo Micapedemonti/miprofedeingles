@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { PrismaClient, LessonType } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
