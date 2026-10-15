@@ -22,7 +22,7 @@ services:
     env_file: .env
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
-      WEB_ORIGIN: http://localhost:8081
+      WEB_ORIGIN: https://miprofe.micaela.dev
     depends_on:
       postgres:
         condition: service_healthy
@@ -36,6 +36,15 @@ services:
       - api
     ports:
       - "8081:80"
+    networks:
+      default:
+      proxy:
+        aliases:
+          - miprofe-web
 
 volumes:
   pgdata:
+
+networks:
+  proxy:
+    external: true
