@@ -38,7 +38,7 @@ export function VoicePicker() {
   return (
     <div className="card form">
       <div>
-        <h3>🔊 Voz en inglés</h3>
+        <h3>Voz en inglés</h3>
         <p className="muted small">
           Toca una voz para escucharla y elegirla. Se guarda en tu cuenta.{' '}
           {saveState === 'saving' && 'Guardando…'}
@@ -56,7 +56,7 @@ export function VoicePicker() {
       ) : (
         <div className="voice-list">
           <button type="button" className={`voice ${selected === null ? 'active' : ''}`} onClick={() => choose(null)}>
-            <span className="voice-name">✨ Automática</span>
+            <span className="voice-name">Automática</span>
             <span className="muted small">{auto ? `La mejor disponible: ${auto}` : ''}</span>
           </button>
           {voices.map((v) => (

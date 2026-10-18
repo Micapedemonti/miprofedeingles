@@ -3,6 +3,7 @@ import type { AnswerResult, GeneratedExercise } from '../lib/api';
 import { api } from '../lib/api';
 import { CATEGORY_LABELS, EXERCISE_LABELS } from '../lib/labels';
 import { getRecognition, heardWords, speak } from '../lib/speech';
+import { Icon } from './Icon';
 
 export type ExerciseResult = { correct: boolean; answer: string; xp: number };
 
@@ -78,12 +79,12 @@ export function ExerciseView({ sessionId, exercise, accent, rate, onResult, onNe
 
       {HIDDEN_TEXT.has(exercise.type) && !checked ? (
         <div className="audio-row">
-          <button className="audio-btn" onClick={() => play()} aria-label="Escuchar">🔊</button>
-          <button className="audio-btn audio-btn-slow" onClick={() => play(true)} aria-label="Escuchar lento">🐢</button>
+          <button className="audio-btn" onClick={() => play()} aria-label="Escuchar"><Icon name="speaker" size={38} /></button>
+          <button className="audio-btn audio-btn-slow" onClick={() => play(true)} aria-label="Escuchar lento">0.7×</button>
         </div>
       ) : exercise.type !== 'WORD_ORDER' || checked ? (
         <div className="prompt">
-          <button className="audio-btn audio-btn-sm" onClick={() => play()} aria-label="Escuchar">🔊</button>
+          <button className="audio-btn audio-btn-sm" onClick={() => play()} aria-label="Escuchar"><Icon name="speaker" size={20} /></button>
           <span className="prompt-text">{exercise.englishText}</span>
         </div>
       ) : null}
@@ -148,13 +149,15 @@ export function ExerciseView({ sessionId, exercise, accent, rate, onResult, onNe
               <p className="small">
                 {heardWords(result.correctAnswer, currentAnswer).every((w) => w.ok)
                   ? 'Entendí todas las palabras, pero no con claridad suficiente. Habla más despacio y marca bien los sonidos finales.'
-                  : 'Las palabras en rojo no se entendieron como debían. Escúchala de nuevo (🔊) y repítela.'}
+                  : 'Las palabras marcadas no se entendieron como debían. Escúchala de nuevo y repítela.'}
               </p>
             </div>
           )}
           {!result.isCorrect && exercise.type !== 'SPEAK_ALOUD' && (
             <p>
-              <strong>Respuesta correcta:</strong> {result.correctAnswer}
+              <span className="muted small">Respuesta correcta</span>
+              <br />
+              <span className="feedback-answer">{result.correctAnswer}</span>
               {!isChoice && (
                 <>
                   <br />
@@ -164,10 +167,10 @@ export function ExerciseView({ sessionId, exercise, accent, rate, onResult, onNe
             </p>
           )}
           <p><strong>Traducción:</strong> {exercise.translation}</p>
-          <p className="tip">💡 {exercise.tip}</p>
+          <p className="tip">{exercise.tip}</p>
           <div className="row">
             {exercise.focusCategory && <span className="chip">{CATEGORY_LABELS[exercise.focusCategory]}</span>}
-            {result.savedToNotebook && <span className="chip chip-warn">📒 Anotado en tu libreta</span>}
+            {result.savedToNotebook && <span className="chip chip-saved"><Icon name="check" size={16} /> Anotado en tu libreta</span>}
           </div>
         </div>
       )}
@@ -263,7 +266,7 @@ function SpeakInput({
         disabled={disabled}
         aria-label={listening ? 'Detener' : 'Hablar'}
       >
-        🎙️
+        <Icon name="mic" size={38} />
       </button>
       <div className="muted small">{listening ? 'Escuchando…' : value ? 'Te escuché:' : 'Toca y lee la frase en voz alta'}</div>
       {value && <div className="transcript">“{value}”</div>}

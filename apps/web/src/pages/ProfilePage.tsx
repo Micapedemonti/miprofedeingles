@@ -50,7 +50,7 @@ export function ProfilePage() {
 
   return (
     <div className="stack-lg narrow">
-      <h1>👤 Perfil</h1>
+      <h1>Perfil</h1>
       <div className="card">
         <div className="muted small">Cuenta</div>
         <div><strong>{me?.email}</strong></div>
@@ -80,7 +80,7 @@ export function ProfilePage() {
           <div className="chips">
             {interests.map((i) => (
               <button type="button" key={i} className="chip chip-removable" onClick={() => setInterests(interests.filter((x) => x !== i))}>
-                {i} ✕
+                {i} ×
               </button>
             ))}
           </div>

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Icon, type IconName } from './Icon';
 
 export function Loading() {
   return <div className="loading"><div className="spinner" /></div>;
@@ -13,23 +14,20 @@ export function ErrorBox({ message, onRetry }: { message: string; onRetry?: () =
   );
 }
 
-export function Empty({ icon, children }: { icon: string; children: ReactNode }) {
+export function Empty({ icon, children }: { icon: IconName; children: ReactNode }) {
   return (
     <div className="empty">
-      <div className="empty-icon">{icon}</div>
+      <Icon name={icon} size={32} className="empty-icon" />
       <div>{children}</div>
     </div>
   );
 }
 
-export function Stat({ label, value, icon }: { label: string; value: ReactNode; icon: string }) {
+export function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="stat card">
-      <div className="stat-icon">{icon}</div>
-      <div>
-        <div className="stat-value">{value}</div>
-        <div className="stat-label">{label}</div>
-      </div>
+      <div className="stat-value">{value}</div>
+      <div className="stat-label">{label}</div>
     </div>
   );
 }

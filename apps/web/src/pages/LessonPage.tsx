@@ -5,6 +5,7 @@ import { useAuth } from '../lib/auth';
 import { LESSON_TYPES, UNITS, unitName } from '../lib/labels';
 import { ErrorBox } from '../components/ui';
 import { ExerciseView, type ExerciseResult } from '../components/ExerciseView';
+import { Icon, LESSON_ICONS } from '../components/Icon';
 
 const LEVELS: Level[] = ['A1', 'A2', 'B1', 'B2'];
 
@@ -63,8 +64,8 @@ export function LessonPage() {
   if (!lesson) {
     return (
       <div className="lesson-intro card">
-        <Link to="/" className="back">← Volver</Link>
-        <div className="intro-emoji">{unit.emoji}{type.emoji}</div>
+        <Link to="/" className="back"><Icon name="back" size={18} /> Volver</Link>
+        <div className="intro-emoji"><Icon name={LESSON_ICONS[type.id]} size={28} /></div>
         <h1>{unit.name}</h1>
         <p className="muted">{type.name} · {type.hint}</p>
         <div className="field-inline">
@@ -99,7 +100,7 @@ export function LessonPage() {
     const unlockedType = completion.unlocked && LESSON_TYPES.find((t) => t.id === completion.unlocked!.lessonType);
     return (
       <div className="lesson-intro card">
-        <div className="intro-emoji">{pct >= 80 ? '🎉' : '💪'}</div>
+        <div className="intro-emoji"><Icon name={pct >= 80 ? 'sparkle' : 'target'} size={28} /></div>
         <h1>¡Lección terminada!</h1>
         <p className="muted">{lesson.title}</p>
         <div className="stars" aria-label={`${completion.stars} de 3 estrellas`}>
@@ -123,15 +124,17 @@ export function LessonPage() {
         )}
 
         {completion.unlocked && unlockedType && (
-          <div className="alert" style={{ background: 'var(--primary-soft)', color: 'var(--primary)' }}>
-            🔓 Desbloqueaste: {unitName(completion.unlocked.unitId)} · {unlockedType.name}
+          <div className="alert alert-info">
+            <Icon name="unlock" size={18} /> Desbloqueaste: {unitName(completion.unlocked.unitId)} · {unlockedType.name}
           </div>
         )}
 
         <ul className="result-list">
           {lesson.exercises.map((ex) => (
             <li key={ex.id}>
-              <span>{results[ex.id]?.correct ? '✅' : '❌'}</span>
+              {results[ex.id]?.correct
+                ? <span className="result-ok" aria-label="Correcta"><Icon name="check" size={18} /></span>
+                : <span className="result-bad" aria-label="Incorrecta"><Icon name="x" size={18} /></span>}
               <span>{ex.englishText}</span>
             </li>
           ))}
@@ -142,7 +145,7 @@ export function LessonPage() {
           </button>
           {completion.unlocked ? (
             <Link to={`/lesson/${completion.unlocked.unitId}/${completion.unlocked.lessonType}`} className="btn btn-primary">
-              Siguiente lección →
+              Siguiente lección <Icon name="arrow" size={18} />
             </Link>
           ) : (
             <Link to="/" className="btn btn-primary">Volver al inicio</Link>
@@ -158,7 +161,7 @@ export function LessonPage() {
   return (
     <div className="player">
       <div className="player-top">
-        <Link to="/" className="close" aria-label="Salir de la lección">✕</Link>
+        <Link to="/" className="close" aria-label="Salir de la lección"><Icon name="x" size={22} /></Link>
         <div className="bar"><div className="bar-fill" style={{ width: `${pct}%` }} /></div>
         <span className="muted small">{index + 1}/{lesson.exercises.length}</span>
       </div>

@@ -2,6 +2,7 @@ import { api } from '../lib/api';
 import { formatDate, LESSON_TYPES, UNITS } from '../lib/labels';
 import { useAsync } from '../lib/useAsync';
 import { Empty, ErrorBox, Loading, Stat } from '../components/ui';
+import { Icon, LESSON_ICONS } from '../components/Icon';
 
 function lastDays(n: number) {
   const days: string[] = [];
@@ -26,17 +27,17 @@ export function ProgressPage() {
 
   return (
     <div className="stack-lg">
-      <h1>📈 Progreso</h1>
+      <h1>Progreso</h1>
       <div className="stats">
-        <Stat icon="🎓" label="Nivel" value={data.level} />
-        <Stat icon="⭐" label="XP total" value={data.xpTotal} />
-        <Stat icon="📚" label="Lecciones" value={data.lessonsCompleted} />
-        <Stat icon="🎯" label="Precisión media" value={avgAcc !== null ? `${avgAcc}%` : '—'} />
-        <Stat icon="🔥" label="Racha" value={`${data.streak} ${data.streak === 1 ? 'día' : 'días'}`} />
+        <Stat label="Nivel" value={data.level} />
+        <Stat label="XP total" value={data.xpTotal} />
+        <Stat label="Lecciones" value={data.lessonsCompleted} />
+        <Stat label="Precisión media" value={avgAcc !== null ? `${avgAcc}%` : '—'} />
+        <Stat label="Racha" value={`${data.streak} ${data.streak === 1 ? 'día' : 'días'}`} />
       </div>
 
       <section className="card">
-        <h2>🏅 Logros · {data.achievements.filter((a) => a.unlockedAt).length}/{data.achievements.length}</h2>
+        <h2>Logros · {data.achievements.filter((a) => a.unlockedAt).length}/{data.achievements.length}</h2>
         <div className="achievements">
           {data.achievements.map((a) => (
             <div key={a.code} className={`achievement ${a.unlockedAt ? '' : 'achievement-locked'}`}>
@@ -69,10 +70,10 @@ export function ProgressPage() {
         <h2>Mapa de lecciones</h2>
         <div className="grid-table">
           <div />
-          {LESSON_TYPES.map((t) => <div key={t.id} className="grid-head" title={t.name}>{t.emoji}</div>)}
+          {LESSON_TYPES.map((t) => <div key={t.id} className="grid-head" title={t.name} aria-label={t.name}><Icon name={LESSON_ICONS[t.id]} size={18} /></div>)}
           {UNITS.map((u) => (
             <div key={u.id} className="grid-row">
-              <div className="grid-unit">{u.emoji} {u.name}</div>
+              <div className="grid-unit">{u.name}</div>
               {LESSON_TYPES.map((t) => {
                 const lp = data.lessonProgress.find((p) => p.unitId === u.id && p.lessonType === t.id);
                 const cls = lp?.completedAt ? 'cell-done' : lp?.unlocked ? 'cell-open' : 'cell-locked';
@@ -90,7 +91,7 @@ export function ProgressPage() {
       <section className="card">
         <h2>Sesiones recientes</h2>
         {data.sessions.length === 0 ? (
-          <Empty icon="⏳">Todavía no hay sesiones completadas.</Empty>
+          <Empty icon="clock">Todavía no hay sesiones completadas.</Empty>
         ) : (
           <ul className="session-list">
             {data.sessions.slice(0, 10).map((s) => (

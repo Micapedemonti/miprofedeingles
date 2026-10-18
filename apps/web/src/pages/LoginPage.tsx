@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../lib/auth';
+import { LogoMark } from '../components/Logo';
 
 export function LoginPage() {
   const { me, login } = useAuth();
@@ -29,7 +30,7 @@ export function LoginPage() {
   return (
     <div className="login">
       <div className="login-card card">
-        <div className="login-hero">🗣️</div>
+        <LogoMark size={64} />
         <h1>Mi profe de inglés</h1>
         <p className="muted">Practica lo que viste en clase, a tu ritmo.</p>
         <form onSubmit={onSubmit} className="form">

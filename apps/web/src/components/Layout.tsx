@@ -1,11 +1,13 @@
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../lib/auth';
+import { Icon, type IconName } from './Icon';
+import { Logo } from './Logo';
 
-const LINKS = [
-  { to: '/', label: 'Aprender', icon: '🏠', end: true },
-  { to: '/notebook', label: 'Libreta', icon: '📒' },
-  { to: '/progress', label: 'Progreso', icon: '📈' },
-  { to: '/profile', label: 'Perfil', icon: '👤' },
+const LINKS: Array<{ to: string; label: string; icon: IconName; end?: boolean }> = [
+  { to: '/', label: 'Aprender', icon: 'home', end: true },
+  { to: '/notebook', label: 'Libreta', icon: 'book' },
+  { to: '/progress', label: 'Progreso', icon: 'chart' },
+  { to: '/profile', label: 'Perfil', icon: 'user' },
 ];
 
 export function Layout() {
@@ -14,14 +16,13 @@ export function Layout() {
   return (
     <div className={`app ${inLesson ? 'in-lesson' : ''}`}>
       <header className="topbar">
-        <div className="brand">
-          <span className="brand-mark">🗣️</span>
-          <span>Mi profe de inglés</span>
-        </div>
-        <nav className="nav">
+        <Link to="/" aria-label="Mi profe de inglés, inicio">
+          <Logo />
+        </Link>
+        <nav className="nav" aria-label="Principal">
           {LINKS.map((l) => (
             <NavLink key={l.to} to={l.to} end={l.end} className="nav-link">
-              <span className="nav-icon">{l.icon}</span>
+              <Icon name={l.icon} size={24} className="nav-icon" />
               <span className="nav-label">{l.label}</span>
             </NavLink>
           ))}

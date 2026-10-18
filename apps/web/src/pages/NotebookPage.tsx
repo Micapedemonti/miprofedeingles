@@ -15,7 +15,10 @@ export function NotebookPage() {
   return (
     <div className="stack-lg">
       <div className="page-head">
-        <h1>📒 Mi libreta</h1>
+        <div>
+          <h1>Mi libreta</h1>
+          <p className="page-sub">Lo que más se te escapa, con tus propios ejemplos.</p>
+        </div>
         <div className="segmented">
           <button className={tab === 'weak' ? 'active' : ''} onClick={() => setTab('weak')}>
             Puntos débiles ({data.weaknesses.length})
@@ -60,20 +63,20 @@ function Weaknesses({ data, onSaved }: { data: Notebook; onSaved: () => void }) 
     <div className="two-col">
       <div className="stack">
         {data.weaknesses.length === 0 ? (
-          <Empty icon="🌱">Aún no hay errores registrados. Se guardan desde las lecciones o con el formulario.</Empty>
+          <Empty icon="sprout">Aún no hay errores registrados. Se guardan desde las lecciones o con el formulario.</Empty>
         ) : (
           data.weaknesses.map((w) => (
             <article key={w.id} className="card weak">
               <div className="weak-head">
                 <h3>{CATEGORY_LABELS[w.category]}</h3>
-                <span className="chip chip-warn">{w.count}×</span>
+                <span className="weak-count">{w.count} {w.count === 1 ? 'vez' : 'veces'}</span>
               </div>
               <div className="bar bar-thin"><div className="bar-fill bar-warn" style={{ width: `${(w.count / max) * 100}%` }} /></div>
               <ul className="examples">
                 {w.examples.map((ex, i) => (
                   <li key={i}>
-                    <div className="ex-wrong">✗ {ex.wrong}</div>
-                    <div className="ex-right">✓ {ex.correct}</div>
+                    <div className="ex-wrong">{ex.wrong}</div>
+                    <div className="ex-right">{ex.correct}</div>
                     {ex.note && <div className="muted small">{ex.note}</div>}
                   </li>
                 ))}
@@ -142,7 +145,7 @@ function ClassNotes({ data, onSaved }: { data: Notebook; onSaved: () => void }) 
     <div className="two-col">
       <div className="stack">
         {data.classNotes.length === 0 ? (
-          <Empty icon="📝">Anota lo que viste con tu profe. Las lecciones lo usan para conectar con tu clase.</Empty>
+          <Empty icon="note">Anota lo que viste con tu profe. Las lecciones lo usan para conectar con tu clase.</Empty>
         ) : (
           data.classNotes.map((n) => (
             <article key={n.id} className="card note">
