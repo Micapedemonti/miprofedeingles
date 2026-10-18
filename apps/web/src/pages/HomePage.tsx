@@ -70,7 +70,7 @@ export function HomePage() {
             <svg className="goal-ring" width="68" height="68" viewBox="0 0 60 60" role="img" aria-label={`Meta de hoy: ${pct}%`}>
               <circle cx="30" cy="30" r={RING_R} fill="none" stroke="var(--surface-2)" strokeWidth="6" />
               <circle
-                cx="30" cy="30" r={RING_R} fill="none" stroke="var(--ink)" strokeWidth="6" strokeLinecap="round"
+                cx="30" cy="30" r={RING_R} fill="none" stroke="var(--accent)" strokeWidth="6" strokeLinecap="round"
                 strokeDasharray={`${(pct / 100) * RING_C} ${RING_C}`} transform="rotate(-90 30 30)"
               />
             </svg>
