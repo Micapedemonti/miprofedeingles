@@ -79,6 +79,8 @@ La corrección usa el reconocimiento de voz del navegador (mejor en Chrome). Par
 
 El seed crea el usuario definido por `BOOTSTRAP_EMAIL` y `BOOTSTRAP_PASSWORD` si aún no existe. No imprime la contraseña.
 
+Si además defines `DEMO_EMAIL` y `DEMO_PASSWORD` (mínimo 8 caracteres), crea un usuario de prueba con su propio progreso. Volver a correr el seed no cambia la contraseña de un usuario que ya existe.
+
 ```bash
 curl -s http://localhost:3000/api/v1/auth/login \
   -H 'Content-Type: application/json' \

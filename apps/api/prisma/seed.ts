@@ -14,13 +14,7 @@ const units = [
   'job_interview',
 ];
 
-async function main() {
-  const email = process.env.BOOTSTRAP_EMAIL;
-  const password = process.env.BOOTSTRAP_PASSWORD;
-  if (!email || !password || password === 'change-this-password-now') {
-    throw new Error('Set BOOTSTRAP_EMAIL and a non-default BOOTSTRAP_PASSWORD in .env before seeding.');
-  }
-
+async function seedUser(email: string, password: string) {
   const passwordHash = await bcrypt.hash(password, 12);
   const user = await prisma.user.upsert({
     where: { email },
@@ -47,6 +41,25 @@ async function main() {
         },
       });
     }
+  }
+  return user;
+}
+
+async function main() {
+  const email = process.env.BOOTSTRAP_EMAIL;
+  const password = process.env.BOOTSTRAP_PASSWORD;
+  if (!email || !password || password === 'change-this-password-now') {
+    throw new Error('Set BOOTSTRAP_EMAIL and a non-default BOOTSTRAP_PASSWORD in .env before seeding.');
+  }
+  const user = await seedUser(email, password);
+
+  // Optional test account (e.g. to show the app to someone) with its own, separate progress.
+  const demoEmail = process.env.DEMO_EMAIL;
+  const demoPassword = process.env.DEMO_PASSWORD;
+  if (demoEmail && demoPassword) {
+    if (demoPassword.length < 8) throw new Error('DEMO_PASSWORD must have at least 8 characters.');
+    const demo = await seedUser(demoEmail, demoPassword);
+    console.log(`Demo user ready: ${demo.email}.`);
   }
 
   const achievements = [
